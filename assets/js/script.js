@@ -7,26 +7,26 @@ currentDay.text(today.format("dddd, MMMM Do"));
 // function that will update block color depending on the current hour//
 function trackTime() {
   var currentTime = moment().hour();
-  // getting elements with class name time-block
-  $(".time-block").each(function () {
-    //getting id name from each element and turing it into an integer//
-    var scheduleTime = parseInt($(this).attr("id"));
 
-    //changing block color by removing and adding class name//
-    if (scheduleTime < currentTime) {
-      $(this).removeClass("future");
-      $(this).removeClass("present");
-      $(this).addClass("past");
-    }
-    if (scheduleTime === currentTime) {
-      $(this).removeClass("past");
-      $(this).removeClass("future");
-      $(this).addClass("present");
-    }
-    if (scheduleTime > currentTime) {
-      $(this).removeClass("present");
-      $(this).removeClass("past");
-      $(this).addClass("future");
+  // getting all elements with class name time-block = this//
+  $(".time-block").each(function () {
+    for (let i = 9; i < 18; i++) {
+      //changing block color by removing and adding class name//
+      if (i < currentTime) {
+        $("#" + i).removeClass("future");
+        $("#" + i).removeClass("present");
+        $("#" + i).addClass("past");
+      }
+      if (i === currentTime) {
+        $("#" + i).removeClass("past");
+        $("#" + i).removeClass("future");
+        $("#" + i).addClass("present");
+      }
+      if (i > currentTime) {
+        $("#" + i).removeClass("present");
+        $("#" + i).removeClass("past");
+        $("#" + i).addClass("future");
+      }
     }
   });
 }
@@ -54,8 +54,21 @@ function getSchedule() {
   $("#15 .description").val(localStorage.getItem("15"));
   $("#16 .description").val(localStorage.getItem("16"));
   $("#17 .description").val(localStorage.getItem("17"));
+
+
+// This code block needs further investigation on why it doesn't work//
+
+    // for (let i = 9; i < 18; i++) {
+
+    //   let savedText = localStorage.getItem(i);
+    //   console.log(savedText);
+
+    //   $("#" + i + ".description").val(localStorage.getItem(savedText));
+    // }
+
 }
 
+getSchedule();
 saveSchedule();
 trackTime();
-getSchedule();
+
